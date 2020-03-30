@@ -21,6 +21,8 @@ window.axios = require('axios').default;
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('article-list', require('./components/article/ArticleList.vue').default);
+import Paginate from 'vuejs-paginate';
+Vue.component('paginate', Paginate);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

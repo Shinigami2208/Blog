@@ -13,7 +13,7 @@ class ArticleController extends Controller
         $article = Article::findOrFail($request->id);
         $article->fill($request->all());
         $article->save();
-        return redirect()->route('showListArticle');
+        return response()->json($request->id);
     }
 
     public function create(createArticle $request){
@@ -24,8 +24,8 @@ class ArticleController extends Controller
         return redirect()->route('showListArticle');
     }
 
-    public function delete(Request $request, $id){
-        $article = Article::findOrFail($id);
+    public function delete(Request $request){
+        $article = Article::findOrFail($request->id);
         $article->delete();
         return response()->json($request->id);
     }
@@ -36,7 +36,8 @@ class ArticleController extends Controller
 
     public function listPage(Request $request){
         $key = $request->input('keyword');
-        $articles = Article::where('title', 'like', '%'.$key.'%')->paginate(2);
+        $articles = Article::where('title', 'like', '%'.$key.'%')->paginate(3);
+        // sleep(1);
 
         return response()->json($articles);
 
