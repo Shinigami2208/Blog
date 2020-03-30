@@ -1,0 +1,79 @@
++ Blade Template
+    + template engine
+        + Giup code php do lang nhang hon!
+        + La bo chuyen doi tu dang code nao do => code php
+    + Tat ca cac file phai co duoi blade.php 
+    + Quy tac dung layout
+        + Giao dien: Chia thanh cac phan nho
+        + Cau truc extends(master layout => child layout)
+        + extends: Ke thua
+
+        + Hien thi du lieu
+            + Xuat 1 chuoi ra: {{}}
+            + @foreach   @endforeach
+            + @for ($i = 0; $i < 10; $i++)  @endfor 
+            + switch case
+                @switch($a)
+                    @case(1)
+
+                    @endcase
+                @endswitch
+        + Relationship
+            + Quan he giua cac model
+
+        + Cac bai viet co cac comment
+            + Cac model
+                + Article
+                + Comment 
+                + Category 
+
+            + articles
+                - id
+                - title
+                - content
+            + comments
+                - id
+                - article_id
+            + categories
+                - id
+                - name
+            + category_articles
+                - id
+                - category_id 
+                - article_id 
+        + Quan he 1 - 1: belongsTo
+        + Quan he n - 1: hasMany('App\Models\Comment', 'comment_id')
+        + Quan he 1 - n: belongsTo('App\Models\Article', 'article_id')
+        + Quan he n - n: belongsToMany('ten_class', 'ten_bang_trung_gian', 'article_id', 'category_id')
+            + Vd: + categories
+                        + id
+                        + name
+                  + products
+                        + id
+                        + name 
+                  + product_categories
+                        + category_id
+                        + product_id
+            + public function articles(){
+                return $this->belongsToMany('App\Models\article\Article', 'category_articles');
+            }
+            + public function categories(){
+                return $this->belongsToMany('App\Models\Categories', 'category_articles');
+            }
+        + article->comments->first() => Da doc xuong database va lay het comment, sau do moi lay ra ccai dau tien
+        + article->comments()->first() => Chua doc xuong database, khi goi ham fisrt no moi doc xuong database
+
+- Validation
+    + min:6 
+    + max:100
+    + require => Bắt buộc
+    + date => Bắt buộc phải là kiểu ngày tháng 
+    + email => Bắt buộc phải nhập email 
+    + url => Bắt buộc phải nhập địa chỉ web
+    + alpha => a-z va 0-9
+    + alpha_dash => a-z, 0-9, _ 
+    + integer => Bắt buộc phải nhập số
+    + ip 
+    + ipv4
+    + ipv6 
+    + unique:[Tên bảng dưới cơ sở dữ liệu]
